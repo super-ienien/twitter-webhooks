@@ -1,0 +1,31 @@
+{
+  "name": "twitter-webhooks",
+  "version": "1.0.0",
+  "description": "Twitter webhooks library",
+  "main": "index.js",
+  "directories": {
+    "lib": "lib"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/super-ienien/twitter-webhooks.git"
+  },
+  "keywords": [
+    "twitter",
+    "webhooks",
+    "account",
+    "activity"
+  ],
+  "author": "Vivien Anglesio",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/super-ienien/twitter-webhooks/issues"
+  },
+  "homepage": "https://github.com/super-ienien/twitter-webhooks#readme",
+  "dependencies": {
+    "request": "^2.87.0"
+  }
+}
