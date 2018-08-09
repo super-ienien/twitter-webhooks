@@ -68,29 +68,23 @@ userActivityWebhook.on ('unknown-event', (rawData) => console.log (rawData);
 
 UserActivityWebhook
 
-- getWebook(options)
-    - options.env
+- getWebook()
 
-- getWebooks(options)
-    - options.env
+- getWebooks()
         
-- register(options)
-    - options.env
+- register()
     
 - subscribe(options)
     - options.accessToken
     - options.accessTokenSecret
     - options.userId
-    - options.env
 
-- unregister(options)
-    - options.env
+- unregister()
 
 - unsubscribe(options)
     - options.accessToken
     - options.accessTokenSecret
     - options.userId
-    - options.env
     
 #TODO
     - [ ] Finish documentation
