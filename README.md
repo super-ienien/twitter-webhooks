@@ -3,19 +3,19 @@ This module provide a simple way to implement twitter webhooks with ExpressJs.
 
 *This module is very new and is currently being tested to be used in production soon. The documentation is not finished yet. Feel free to make requests or to give some feedbacks in the github issues.*
 
-###Requirements
+### Requirements
 
 - This is an ExpressJS middleware so Express must be installed with your app
 - body-parser JSON middleware must be added mount on your Express app
 - Your server must be reachable with https because twitter doesn't accept unsecured webhooks.
 
-###Install
+### Install
 
 `npm i -s twitter-webhooks`
 
-###Usage
+### Usage
 
-```
+```javascript
 const express = require ('express');
 const bodyParser = require ('body-parser');
 const twitterWebhooks = require('twitter-webhooks');
@@ -64,7 +64,7 @@ userActivityWebhook.on ('unknown-event', (rawData) => console.log (rawData);
 
 ```
 
-###Reference
+### Reference
 
 UserActivityWebhook
 
@@ -86,14 +86,14 @@ UserActivityWebhook
     - options.accessTokenSecret
     - options.userId
     
-#TODO
+# TODO
     - [ ] Finish documentation
     - [ ] Add some automation helpers like auto-delete subscription on user revoke event 
           or auto check url callback on webhook registration.
     - [ ] Add tests
     - [ ] Add a working example
     
-#LICENSE    
+# LICENSE    
     MIT License
     
     Copyright (c) 2018 Vivien Anglesio
