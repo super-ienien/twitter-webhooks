@@ -1,6 +1,6 @@
 # Twitter Webhooks
-[![NPM](https://nodei.co/npm/twitter-webhooks.png)](https://nodei.co/npm/twitter-webhooks/)
-[![MIT License](https://img.shields.io/badge/license-MIT-blue.svg?style=flat)](https://github.com/mironal/tw-activity/blob/master/LICENSE)
+[![NPM](https://nodei.co/npm/twitter-webhooks.png)](https://nodei.co/npm/twitter-webhooks/)  
+[![npm version](https://badge.fury.io/js/twitter-webhooks.svg)](https://badge.fury.io/js/twitter-webhooks) [![MIT License](https://img.shields.io/badge/license-MIT-blue.svg?style=flat)](https://github.com/mironal/tw-activity/blob/master/LICENSE)
 
 This module provide a simple way to implement twitter webhooks with ExpressJs.
 
