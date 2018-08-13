@@ -66,25 +66,92 @@ userActivityWebhook.on ('unknown-event', (rawData) => console.log (rawData));
 
 ### Reference
 
-UserActivityWebhook
-
-- getWebook()
-
-- getWebooks()
-        
-- register()
+*  **twitterWebhooks.userActivity(*config*)** - `return UserActivity`
+    * **config.serverUrl** - `string`: The server URL were twitter can reach the webhook app (eg: 'https://my.aweso.me/service')
+    * **config.route** - `string`: the route of the middleware in the app (eg: '/user-activity-webhook')
+    * **config.consumerKey** - `string`: Your Twitter app consumerKey
+    * **config.consumerSecret** - `string`: Your Twitter app consumerSecret
+    * **config.accessToken** - `string`: Your Twitter app accessToken
+    * **config.accessTokenSecret** - `string`: Your Twitter app accessTokenSecret
+    * **config.environment** - `string`: The environment name of the webhook. You can find it in your [twitter dashboard](https://developer.twitter.com/en/dashboard)
+    * **config.app** - `Express App` *(optional)*: The express app on which mount the middleware. If not provided don't forget to mount the middleware (eg : `app.use(userActivity.route, userActivity)` )
     
-- subscribe(options)
-    - options.accessToken
-    - options.accessTokenSecret
-    - options.userId
+    This method construct a ready to use userActivity middleware.  
 
-- unregister()
+#### UserActivity middleware
 
-- unsubscribe(options)
-    - options.accessToken
-    - options.accessTokenSecret
-    - options.userId
+* **getSubscriptionsCount()**  - `return Promise<Integer>`  
+    Get the subscriptions count of your Twitter app. 
+
+    ```json
+    //response
+    {
+        "subscriptions_count_all": "2",
+        "subscriptions_count_direct_messages": "1"
+    }
+    ```
+* **getWebook()**  - `return Promise<Object>`   
+Get informations about the current registered webhooks of an environment. 
+    > Warning : This method will certainly be modified.
+
+    ```json
+    //response
+    [
+      {
+        "id": "1234567890",
+        "url": "https://my.aweso.me/service/user-activity-webhook",
+        "valid": true,
+        "created_at": "2016-06-02T23:54:02Z"
+      }
+    ]
+    ```
+
+* **getWebooks()** - `return Promise<Object>`   
+Get informations about webhooks for all the environments of your twitter app. [Read Twitter's doc](https://developer.twitter.com/en/docs/accounts-and-users/subscribe-account-activity/api-reference/aaa-premium#get-account-activity-all-webhooks)
+
+* **isSubscribed()** - `return Promise<Boolean>`   
+    * **options.accessToken** - `string` : The twitter account accessToken
+    * **options.accessTokenSecret** - `string` : The twitter account accessTokenSecret
+    * **options.userId** - `string` : The twitter account Id
+    
+   Check if a subscription exists for a twitter account. The returned promise resolve to `true` if the subscription exists and to `false` if it does'nt.
+
+* **register()** - `return Promise<Object>`  
+Registers the webhook with the parameters given in the config of the middleware constructor. [Read Twitter's doc](https://developer.twitter.com/en/docs/accounts-and-users/subscribe-account-activity/api-reference/aaa-premium#post-account-activity-all-env-name-webhooks)
+    ```json
+    //response
+    {
+      "id": "1234567890",
+      "url": "https://my.aweso.me/service/user-activity-webhook",
+      "valid": true,
+      "created_at": "2016-06-02T23:54:02Z"
+    }
+    ```
+
+* **subscribe(options)** - `return Promise<UserActivityEmitter>`
+    * **options.accessToken** - `string` : The twitter account accessToken
+    * **options.accessTokenSecret** - `string` : The twitter account accessTokenSecret
+    * **options.userId** - `string` : The twitter account Id
+    
+    Subscribes to all events of a twitter account. The success value of the returned promise is an UserActivityEmitter object that will emit all the events received for this account on the webhook.
+
+* **triggerChallengeResponseCheck(options)**
+    * **options.webhookId** - `string` : The webhook id
+    
+    manually trigger a CRC request on the webhook. [Read Twitter's doc](https://developer.twitter.com/en/docs/accounts-and-users/subscribe-account-activity/api-reference/aaa-premium#put-account-activity-all-env-name-webhooks-webhook-id)
+    
+* **unregister()** - `return Promise`  
+    Unregisters the webhook with the parameters given in the config of the middleware constructor. [Read Twitter's doc](Registers the webhook with the parameters given in the config of the middleware constructor. [Read Twitter's doc](https://developer.twitter.com/en/docs/accounts-and-users/subscribe-account-activity/api-reference/aaa-premium#post-account-activity-all-env-name-webhooks)
+
+* **unsubscribe(options)** - `return Promise<>`
+    * **options.accessToken** - `string` : The twitter account accessToken
+    * **options.accessTokenSecret** - `string` : The twitter account accessTokenSecret
+    * **options.userId** - `string` : The twitter account Id
+    
+    Deletes a subscription.
+    
+#### UserActivityEmitter 
+*You can refer to the example above until this part of the documentation is done* 
     
 # TODO
     - [ ] Finish documentation
