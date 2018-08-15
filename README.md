@@ -153,13 +153,99 @@ Registers the webhook with the parameters given in the config of the middleware 
     
     Deletes a subscription.
     
-#### UserActivityEmitter 
-*You can refer to the example above until this part of the documentation is done* 
+#### Class : UserActivityEmitter 
+
+Instances of the UserActivityEmitter class are [EventEmitters](https://nodejs.org/dist/latest-v10.x/docs/api/events.html#events_class_eventemitter) that represent activity of one twitter account.
+
+* **Event: 'tweet_create'**
+    * tweet - `<Tweet Object>` : The created tweet object. For more details on Tweet Objects : [Read Twitter's doc](https://developer.twitter.com/en/docs/tweets/data-dictionary/overview/tweet-object)
+        
+* **Event: 'favorite'** 
+    * favoriteEvent - `Object` : 
+        * id - `string` : ID of the event
+        * created_at - `string` : Date string of when the event happened
+        * timestamp_ms - `number`: Timestamp of when the event happened
+        * favorited_status - `<Tweet Object>`: The favorited tweet object. For more details on Tweet Objects : [Read Twitter's doc](https://developer.twitter.com/en/docs/tweets/data-dictionary/overview/tweet-object)
+        * user - `<User Object>`: The user object of the account who favorited the tweet. For more details on User Objects : [Read Twitter's doc](https://developer.twitter.com/en/docs/tweets/data-dictionary/overview/user-object)
+    ```json
+    {
+        "id": "a7ba59eab0bfcba386f7acedac279542",
+        "created_at": "Mon Mar 26 16:33:26 +0000 2018",
+        "timestamp_ms": 1522082006140,
+        "favorited_status": "<Tweet Object>",
+        "user": "<User Object>"
+    }
+    ```
+* **Event: 'follow'** 
+    * followEvent - `Object` : 
+        * id - `string` : ID of the event
+        * created_timestamp - `string`: Timestamp of when the event happened
+        * target - `<Tweet Object>`: The followed User. For more details on User Objects : [Read Twitter's doc](https://developer.twitter.com/en/docs/tweets/data-dictionary/overview/tweet-object)
+        * source - `<User Object>`: The following User. For more details on User Objects : [Read Twitter's doc](https://developer.twitter.com/en/docs/tweets/data-dictionary/overview/user-object)
+    ```json
+    {
+        "type": "follow",
+        "created_timestamp": "1517588749178",
+        "target": "<User Object>",
+        "source": "<User Object>"
+    }
+    ```
+* **Event: 'block'** 
+    * blockEvent - `Object` : 
+        * id - `string` : ID of the event
+        * created_timestamp - `string`: Timestamp of when the event happened
+        * target - `<Tweet Object>`: The blocked User. For more details on User Objects : [Read Twitter's doc](https://developer.twitter.com/en/docs/tweets/data-dictionary/overview/tweet-object)
+        * source - `<User Object>`: The blocking User. For more details on User Objects : [Read Twitter's doc](https://developer.twitter.com/en/docs/tweets/data-dictionary/overview/user-object)
+    ```json
+    {
+        "type": "follow",
+        "created_timestamp": "1517588749178",
+        "target": "<User Object>",
+        "source": "<User Object>"
+    }
+    ```
+* **Event: 'mute'** 
+    * muteEvent - `Object` : 
+        * id - `string` : ID of the event
+        * created_timestamp - `string`: Timestamp of when the event happened
+        * target - `<Tweet Object>`: The muted User. For more details on User Objects : [Read Twitter's doc](https://developer.twitter.com/en/docs/tweets/data-dictionary/overview/tweet-object)
+        * source - `<User Object>`: The muting User. For more details on User Objects : [Read Twitter's doc](https://developer.twitter.com/en/docs/tweets/data-dictionary/overview/user-object)
+    ```json
+    {
+        "type": "follow",
+        "created_timestamp": "1517588749178",
+        "target": "<User Object>",
+        "source": "<User Object>"
+    }
+    ```
+* **Event: 'direct_message'** 
+* **Event: 'direct_message_indicate_typing'** 
+* **Event: 'direct_message_mark_read'** 
+* **Event: 'tweet_delete'** 
+    * tweetDeleteEvent - `Object`: 
+        * status - `object`:
+            * id - `string`: id of the deleted tweet
+            * user_id - `string`: id of the user who deleted tweet
+        * timestamp_ms - `string`: Timestamp of when the event happened
+    ```json
+    {
+        "status": {
+            "id": "601430178305220608",
+            "user_id": "3198576760"
+        },
+        "timestamp_ms": "1432228155593"
+    }
+    ```
+* **Event: 'revoke'** 
+    * userId - `string` : Id of the user who revoked the subscription. This is the same id as the UserActivityEmitter instance id.  
+
+    Emitted when the user revokes the subscription.
     
+For more details on each event : [Read Twitter's doc](https://developer.twitter.com/en/docs/accounts-and-users/subscribe-account-activity/guides/account-activity-data-objects)
+
 # TODO
     - [ ] Finish documentation
-    - [ ] Add some automation helpers like auto-delete subscription on user revoke event 
-          or auto check url callback on webhook registration.
+    - [ ] Improve direct message events the emitted data object is incomplete
     - [ ] Add tests
     - [ ] Add a working example
     
