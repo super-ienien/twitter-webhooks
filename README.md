@@ -6,17 +6,17 @@ This module provide a simple way to implement twitter webhooks with ExpressJs.
 
 *This module is very new and is currently being tested to be used in production soon. The documentation is not finished yet. Feel free to make requests or to give some feedbacks in the github issues.*
 
-### Requirements
+## Requirements
 
 - This is an ExpressJS middleware so Express must be installed with your app
 - body-parser JSON middleware must be added mount on your Express app
 - Your server must be reachable with https because twitter doesn't accept unsecured webhooks.
 
-### Install
+## Install
 
 `npm i -s twitter-webhooks`
 
-### Usage
+## Usage
 
 ```javascript
 const express = require ('express');
@@ -65,11 +65,11 @@ userActivityWebhook.on ('event', (event, userId, data) => console.log (userId + 
 //listen to unknown payload (in case of api new features)
 userActivityWebhook.on ('unknown-event', (rawData) => console.log (rawData));
 
-```
+```  
 
-### Reference
+## Reference
 
-*  **twitterWebhooks.userActivity(*config*)** - `return UserActivity`
+* **twitterWebhooks.userActivity(*config*)** - `return UserActivity`
     * **config.serverUrl** - `string`: The server URL were twitter can reach the webhook app (eg: 'https://my.aweso.me/service')
     * **config.route** - `string`: the route of the middleware in the app (eg: '/user-activity-webhook')
     * **config.consumerKey** - `string`: Your Twitter app consumerKey
@@ -78,170 +78,170 @@ userActivityWebhook.on ('unknown-event', (rawData) => console.log (rawData));
     * **config.accessTokenSecret** - `string`: Your Twitter app accessTokenSecret
     * **config.environment** - `string`: The environment name of the webhook. You can find it in your [twitter dashboard](https://developer.twitter.com/en/dashboard)
     * **config.app** - `Express App` *(optional)*: The express app on which mount the middleware. If not provided don't forget to mount the middleware (eg : `app.use(userActivity.route, userActivity)` )
-    
+
     This method construct a ready to use userActivity middleware.  
 
-#### UserActivity middleware
+    ## UserActivity middleware
 
-* **getSubscriptionsCount()**  - `return Promise<Integer>`  
-    Get the subscriptions count of your Twitter app. 
+    * **getSubscriptionsCount()**  - `return Promise<Integer>`  
+        Get the subscriptions count of your Twitter app. 
 
-    ```json
-    //response
-    {
-        "subscriptions_count_all": "2",
-        "subscriptions_count_direct_messages": "1"
-    }
-    ```
-* **getWebook()**  - `return Promise<Object>`   
-Get informations about the current registered webhooks of an environment. 
-    > Warning : This method will certainly be modified.
+        ```json
+        //response
+        {
+            "subscriptions_count_all": "2",
+            "subscriptions_count_direct_messages": "1"
+        }
+        ```
+    * **getWebook()**  - `return Promise<Object>`   
+    Get informations about the current registered webhooks of an environment. 
+        > Warning : This method will certainly be modified.
 
-    ```json
-    //response
-    [
-      {
-        "id": "1234567890",
-        "url": "https://my.aweso.me/service/user-activity-webhook",
-        "valid": true,
-        "created_at": "2016-06-02T23:54:02Z"
-      }
-    ]
-    ```
+        ```json
+        //response
+        [
+          {
+            "id": "1234567890",
+            "url": "https://my.aweso.me/service/user-activity-webhook",
+            "valid": true,
+            "created_at": "2016-06-02T23:54:02Z"
+          }
+        ]
+        ```
 
-* **getWebooks()** - `return Promise<Object>`   
-Get informations about webhooks for all the environments of your twitter app. [Read Twitter's doc](https://developer.twitter.com/en/docs/accounts-and-users/subscribe-account-activity/api-reference/aaa-premium#get-account-activity-all-webhooks)
+    * **getWebooks()** - `return Promise<Object>`   
+    Get informations about webhooks for all the environments of your twitter app. [Read Twitter's doc](https://developer.twitter.com/en/docs/accounts-and-users/subscribe-account-activity/api-reference/aaa-premium#get-account-activity-all-webhooks)
 
-* **isSubscribed()** - `return Promise<Boolean>`   
-    * **options.accessToken** - `string` : The twitter account accessToken
-    * **options.accessTokenSecret** - `string` : The twitter account accessTokenSecret
-    * **options.userId** - `string` : The twitter account Id
-    
-   Check if a subscription exists for a twitter account. The returned promise resolve to `true` if the subscription exists and to `false` if it does'nt.
+    * **isSubscribed()** - `return Promise<Boolean>`   
+        * **options.accessToken** - `string` : The twitter account accessToken
+        * **options.accessTokenSecret** - `string` : The twitter account accessTokenSecret
+        * **options.userId** - `string` : The twitter account Id
 
-* **register()** - `return Promise<Object>`  
-Registers the webhook with the parameters given in the config of the middleware constructor. [Read Twitter's doc](https://developer.twitter.com/en/docs/accounts-and-users/subscribe-account-activity/api-reference/aaa-premium#post-account-activity-all-env-name-webhooks)
-    ```json
-    //response
-    {
-      "id": "1234567890",
-      "url": "https://my.aweso.me/service/user-activity-webhook",
-      "valid": true,
-      "created_at": "2016-06-02T23:54:02Z"
-    }
-    ```
+       Check if a subscription exists for a twitter account. The returned promise resolve to `true` if the subscription exists and to `false` if it does'nt.
 
-* **subscribe(options)** - `return Promise<UserActivityEmitter>`
-    * **options.accessToken** - `string` : The twitter account accessToken
-    * **options.accessTokenSecret** - `string` : The twitter account accessTokenSecret
-    * **options.userId** - `string` : The twitter account Id
-    
-    Subscribes to all events of a twitter account. The success value of the returned promise is an UserActivityEmitter object that will emit all the events received for this account on the webhook.
+    * **register()** - `return Promise<Object>`  
+    Registers the webhook with the parameters given in the config of the middleware constructor. [Read Twitter's doc](https://developer.twitter.com/en/docs/accounts-and-users/subscribe-account-activity/api-reference/aaa-premium#post-account-activity-all-env-name-webhooks)
+        ```json
+        //response
+        {
+          "id": "1234567890",
+          "url": "https://my.aweso.me/service/user-activity-webhook",
+          "valid": true,
+          "created_at": "2016-06-02T23:54:02Z"
+        }
+        ```
 
-* **triggerChallengeResponseCheck(options)**
-    * **options.webhookId** - `string` : The webhook id
-    
-    manually trigger a CRC request on the webhook. [Read Twitter's doc](https://developer.twitter.com/en/docs/accounts-and-users/subscribe-account-activity/api-reference/aaa-premium#put-account-activity-all-env-name-webhooks-webhook-id)
-    
-* **unregister()** - `return Promise`  
-    Unregisters the webhook with the parameters given in the config of the middleware constructor. [Read Twitter's doc](Registers the webhook with the parameters given in the config of the middleware constructor. [Read Twitter's doc](https://developer.twitter.com/en/docs/accounts-and-users/subscribe-account-activity/api-reference/aaa-premium#post-account-activity-all-env-name-webhooks)
+    * **subscribe(options)** - `return Promise<UserActivityEmitter>`
+        * **options.accessToken** - `string` : The twitter account accessToken
+        * **options.accessTokenSecret** - `string` : The twitter account accessTokenSecret
+        * **options.userId** - `string` : The twitter account Id
 
-* **unsubscribe(options)** - `return Promise<>`
-    * **options.accessToken** - `string` : The twitter account accessToken
-    * **options.accessTokenSecret** - `string` : The twitter account accessTokenSecret
-    * **options.userId** - `string` : The twitter account Id
-    
-    Deletes a subscription.
-    
-#### Class : UserActivityEmitter 
+        Subscribes to all events of a twitter account. The success value of the returned promise is an UserActivityEmitter object that will emit all the events received for this account on the webhook.
 
-Instances of the UserActivityEmitter class are [EventEmitters](https://nodejs.org/dist/latest-v10.x/docs/api/events.html#events_class_eventemitter) that represent activity of one twitter account.
+    * **triggerChallengeResponseCheck(options)**
+        * **options.webhookId** - `string` : The webhook id
 
-* **Event: 'tweet_create'**
-    * tweet - `<Tweet Object>` : The created tweet object. For more details on Tweet Objects : [Read Twitter's doc](https://developer.twitter.com/en/docs/tweets/data-dictionary/overview/tweet-object)
+        manually trigger a CRC request on the webhook. [Read Twitter's doc](https://developer.twitter.com/en/docs/accounts-and-users/subscribe-account-activity/api-reference/aaa-premium#put-account-activity-all-env-name-webhooks-webhook-id)
+
+    * **unregister()** - `return Promise`  
+        Unregisters the webhook with the parameters given in the config of the middleware constructor. [Read Twitter's doc](Registers the webhook with the parameters given in the config of the middleware constructor. [Read Twitter's doc](https://developer.twitter.com/en/docs/accounts-and-users/subscribe-account-activity/api-reference/aaa-premium#post-account-activity-all-env-name-webhooks)
+
+    * **unsubscribe(options)** - `return Promise<>`
+        * **options.accessToken** - `string` : The twitter account accessToken
+        * **options.accessTokenSecret** - `string` : The twitter account accessTokenSecret
+        * **options.userId** - `string` : The twitter account Id
         
-* **Event: 'favorite'** 
-    * favoriteEvent - `Object` : 
-        * id - `string` : ID of the event
-        * created_at - `string` : Date string of when the event happened
-        * timestamp_ms - `number`: Timestamp of when the event happened
-        * favorited_status - `<Tweet Object>`: The favorited tweet object. For more details on Tweet Objects : [Read Twitter's doc](https://developer.twitter.com/en/docs/tweets/data-dictionary/overview/tweet-object)
-        * user - `<User Object>`: The user object of the account who favorited the tweet. For more details on User Objects : [Read Twitter's doc](https://developer.twitter.com/en/docs/tweets/data-dictionary/overview/user-object)
-    ```json
-    {
-        "id": "a7ba59eab0bfcba386f7acedac279542",
-        "created_at": "Mon Mar 26 16:33:26 +0000 2018",
-        "timestamp_ms": 1522082006140,
-        "favorited_status": "<Tweet Object>",
-        "user": "<User Object>"
-    }
-    ```
-* **Event: 'follow'** 
-    * followEvent - `Object` : 
-        * id - `string` : ID of the event
-        * created_timestamp - `string`: Timestamp of when the event happened
-        * target - `<Tweet Object>`: The followed User. For more details on User Objects : [Read Twitter's doc](https://developer.twitter.com/en/docs/tweets/data-dictionary/overview/tweet-object)
-        * source - `<User Object>`: The following User. For more details on User Objects : [Read Twitter's doc](https://developer.twitter.com/en/docs/tweets/data-dictionary/overview/user-object)
-    ```json
-    {
-        "type": "follow",
-        "created_timestamp": "1517588749178",
-        "target": "<User Object>",
-        "source": "<User Object>"
-    }
-    ```
-* **Event: 'block'** 
-    * blockEvent - `Object` : 
-        * id - `string` : ID of the event
-        * created_timestamp - `string`: Timestamp of when the event happened
-        * target - `<Tweet Object>`: The blocked User. For more details on User Objects : [Read Twitter's doc](https://developer.twitter.com/en/docs/tweets/data-dictionary/overview/tweet-object)
-        * source - `<User Object>`: The blocking User. For more details on User Objects : [Read Twitter's doc](https://developer.twitter.com/en/docs/tweets/data-dictionary/overview/user-object)
-    ```json
-    {
-        "type": "follow",
-        "created_timestamp": "1517588749178",
-        "target": "<User Object>",
-        "source": "<User Object>"
-    }
-    ```
-* **Event: 'mute'** 
-    * muteEvent - `Object` : 
-        * id - `string` : ID of the event
-        * created_timestamp - `string`: Timestamp of when the event happened
-        * target - `<Tweet Object>`: The muted User. For more details on User Objects : [Read Twitter's doc](https://developer.twitter.com/en/docs/tweets/data-dictionary/overview/tweet-object)
-        * source - `<User Object>`: The muting User. For more details on User Objects : [Read Twitter's doc](https://developer.twitter.com/en/docs/tweets/data-dictionary/overview/user-object)
-    ```json
-    {
-        "type": "follow",
-        "created_timestamp": "1517588749178",
-        "target": "<User Object>",
-        "source": "<User Object>"
-    }
-    ```
-* **Event: 'direct_message'** 
-* **Event: 'direct_message_indicate_typing'** 
-* **Event: 'direct_message_mark_read'** 
-* **Event: 'tweet_delete'** 
-    * tweetDeleteEvent - `Object`: 
-        * status - `object`:
-            * id - `string`: id of the deleted tweet
-            * user_id - `string`: id of the user who deleted tweet
-        * timestamp_ms - `string`: Timestamp of when the event happened
-    ```json
-    {
-        "status": {
-            "id": "601430178305220608",
-            "user_id": "3198576760"
-        },
-        "timestamp_ms": "1432228155593"
-    }
-    ```
-* **Event: 'revoke'** 
-    * userId - `string` : Id of the user who revoked the subscription. This is the same id as the UserActivityEmitter instance id.  
+        Deletes a subscription.
+        
+    ## Class: UserActivityEmitter 
 
-    Emitted when the user revokes the subscription.
+    Instances of the UserActivityEmitter class are [EventEmitters](https://nodejs.org/dist/latest-v10.x/docs/api/events.html#events_class_eventemitter) that represent activity of one twitter account.
     
-For more details on each event : [Read Twitter's doc](https://developer.twitter.com/en/docs/accounts-and-users/subscribe-account-activity/guides/account-activity-data-objects)
+    * **Event: 'tweet_create'**
+        * tweet - `<Tweet Object>` : The created tweet object. For more details on Tweet Objects : [Read Twitter's doc](https://developer.twitter.com/en/docs/tweets/data-dictionary/overview/tweet-object)
+            
+    * **Event: 'favorite'** 
+        * favoriteEvent - `Object` : 
+            * id - `string` : ID of the event
+            * created_at - `string` : Date string of when the event happened
+            * timestamp_ms - `number`: Timestamp of when the event happened
+            * favorited_status - `<Tweet Object>`: The favorited tweet object. For more details on Tweet Objects : [Read Twitter's doc](https://developer.twitter.com/en/docs/tweets/data-dictionary/overview/tweet-object)
+            * user - `<User Object>`: The user object of the account who favorited the tweet. For more details on User Objects : [Read Twitter's doc](https://developer.twitter.com/en/docs/tweets/data-dictionary/overview/user-object)
+        ```json
+        {
+            "id": "a7ba59eab0bfcba386f7acedac279542",
+            "created_at": "Mon Mar 26 16:33:26 +0000 2018",
+            "timestamp_ms": 1522082006140,
+            "favorited_status": "<Tweet Object>",
+            "user": "<User Object>"
+        }
+        ```
+    * **Event: 'follow'** 
+        * followEvent - `Object` : 
+            * id - `string` : ID of the event
+            * created_timestamp - `string`: Timestamp of when the event happened
+            * target - `<Tweet Object>`: The followed User. For more details on User Objects : [Read Twitter's doc](https://developer.twitter.com/en/docs/tweets/data-dictionary/overview/tweet-object)
+            * source - `<User Object>`: The following User. For more details on User Objects : [Read Twitter's doc](https://developer.twitter.com/en/docs/tweets/data-dictionary/overview/user-object)
+        ```json
+        {
+            "type": "follow",
+            "created_timestamp": "1517588749178",
+            "target": "<User Object>",
+            "source": "<User Object>"
+        }
+        ```
+    * **Event: 'block'** 
+        * blockEvent - `Object` : 
+            * id - `string` : ID of the event
+            * created_timestamp - `string`: Timestamp of when the event happened
+            * target - `<Tweet Object>`: The blocked User. For more details on User Objects : [Read Twitter's doc](https://developer.twitter.com/en/docs/tweets/data-dictionary/overview/tweet-object)
+            * source - `<User Object>`: The blocking User. For more details on User Objects : [Read Twitter's doc](https://developer.twitter.com/en/docs/tweets/data-dictionary/overview/user-object)
+        ```json
+        {
+            "type": "follow",
+            "created_timestamp": "1517588749178",
+            "target": "<User Object>",
+            "source": "<User Object>"
+        }
+        ```
+    * **Event: 'mute'** 
+        * muteEvent - `Object` : 
+            * id - `string` : ID of the event
+            * created_timestamp - `string`: Timestamp of when the event happened
+            * target - `<Tweet Object>`: The muted User. For more details on User Objects : [Read Twitter's doc](https://developer.twitter.com/en/docs/tweets/data-dictionary/overview/tweet-object)
+            * source - `<User Object>`: The muting User. For more details on User Objects : [Read Twitter's doc](https://developer.twitter.com/en/docs/tweets/data-dictionary/overview/user-object)
+        ```json
+        {
+            "type": "follow",
+            "created_timestamp": "1517588749178",
+            "target": "<User Object>",
+            "source": "<User Object>"
+        }
+        ```
+    * **Event: 'direct_message'** 
+    * **Event: 'direct_message_indicate_typing'** 
+    * **Event: 'direct_message_mark_read'** 
+    * **Event: 'tweet_delete'** 
+        * tweetDeleteEvent - `Object`: 
+            * status - `object`:
+                * id - `string`: id of the deleted tweet
+                * user_id - `string`: id of the user who deleted tweet
+            * timestamp_ms - `string`: Timestamp of when the event happened
+        ```json
+        {
+            "status": {
+                "id": "601430178305220608",
+                "user_id": "3198576760"
+            },
+            "timestamp_ms": "1432228155593"
+        }
+        ```
+    * **Event: 'revoke'** 
+        * userId - `string` : Id of the user who revoked the subscription. This is the same id as the UserActivityEmitter instance id.  
+    
+        Emitted when the user revokes the subscription.
+        
+    For more details on each event : [Read Twitter's doc](https://developer.twitter.com/en/docs/accounts-and-users/subscribe-account-activity/guides/account-activity-data-objects)
 
 # TODO
     - [ ] Finish documentation
