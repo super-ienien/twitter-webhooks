@@ -244,10 +244,10 @@ userActivityWebhook.on ('unknown-event', (rawData) => console.log (rawData));
     For more details on each event : [Read Twitter's doc](https://developer.twitter.com/en/docs/accounts-and-users/subscribe-account-activity/guides/account-activity-data-objects)
 
 # TODO
-    - [ ] Finish documentation
-    - [ ] Improve direct message events the emitted data object is incomplete
-    - [ ] Add tests
-    - [ ] Add a working example
+    [ ] Finish documentation
+    [ ] Improve direct message events the emitted data object is incomplete
+    [ ] Add tests
+    [ ] Add a working example
     
 # LICENSE    
     MIT License
