@@ -71,32 +71,32 @@ userActivityWebhook.on ('unknown-event', (rawData) => console.log (rawData));
 # Reference
 
 * [TwitterWebhooks](#twitterwebhooks)
-    * [userActivity(config)](#useractivity(config))
+    * [userActivity(config)](#useractivityconfig)
 
-* [Middleware: UserActivity](#middleware:-useractivity)
-    * Event: 'event'
-    * Event: 'unknown-event'
-    * getSubscriptionsCount()
-    * getWebhook()
-    * getWebhooks()
-    * isSubscribed(options)
-    * register()
-    * subscribe(options)
-    * triggerChallengeResponseCheck(options)
-    * unregister()
-    * unsubscribe(options)
+* [Middleware: UserActivity](#middleware-useractivity)
+    * [Event: 'event'](#event-event)
+    * [Event: 'unknown-event'](#event-unknown-event)
+    * [getSubscriptionsCount()](#getsubscriptionscount)
+    * [getWebhook()](#getWebhook)
+    * [getWebhooks()](#getWebhooks)
+    * [isSubscribed(options)](#issubscribedoptions)
+    * [register()](#register)
+    * [subscribe(options)](#subscribeoptions)
+    * [triggerChallengeResponseCheck(options)](#triggerchallengeresponsecheckoptions)
+    * [unregister()](#unregister)
+    * [unsubscribe(options)](#unsubscribeoptions)
 
-* [Class: UserActivityEmitter](#class--useractivityemitter)
-    * [Event: 'block'](#event---block)
-    * Event: 'favorite'
-    * Event: 'follow'
-    * Event: 'mute'
-    * Event: 'tweet_create'
-    * Event: 'direct_message'
-    * Event: 'direct_message_indicate_typing'
-    * Event: 'direct_message_mark_read'
-    * Event: 'tweet_delete'
-    * Event: 'revoke'
+* [Class: UserActivityEmitter](#class-useractivityemitter)
+    * [Event: 'block'](#event-block)
+    * [Event: 'favorite'](#event-favorite)
+    * [Event: 'follow'](#event-follow)
+    * [Event: 'mute'](#event-mute)
+    * [Event: 'tweet_create'](#event-tweet_create)
+    * [Event: 'direct_message'](#event-direct_message)
+    * [Event: 'direct_message_indicate_typing'](#event-direct_message_indicate_typing)
+    * [Event: 'direct_message_mark_read'](#event-direct_message_mark_read)
+    * [Event: 'tweet_delete'](#event-tweet_delete)
+    * [Event: 'revoke'](#revoke)
 
 * ## twitterWebhooks
     
@@ -106,7 +106,7 @@ userActivityWebhook.on ('unknown-event', (rawData) => console.log (rawData));
     ````
     
     * ### userActivity(config)
-        Create an [UserActivity](#middleware:-useractivity) middleware and automatically mount it on an express app if `config.app` is provided.  
+        Create an [UserActivity](#middleware-useractivity) middleware and automatically mount it on an express app if `config.app` is provided.  
     
         #### arguments
         *  **config** - `Object`:
@@ -120,12 +120,16 @@ userActivityWebhook.on ('unknown-event', (rawData) => console.log (rawData));
             * **config.app** - `Express App` *(optional)*: The express app on which mount the middleware. If not provided don't forget to mount the middleware (eg : `app.use(userActivity.route, userActivity)` )
 
          #### return value `UserActivity`
-        This method returns a [UserActivity](#middleware:-useractivity) middleware.  
+        This method returns a [UserActivity](#middleware-useractivity) middleware.  
             
 * ## Middleware: UserActivity
     
+    An UserActivity middleware is created using the [twitterWebhooks.userActivity(config)](#useractivityconfig) method. This middleware can be mount on an ExpressJs app. Each middleware is associated with one User Activity webhook. UserActivity middlewares have a set of methods that helps to configure the webhook by sending calls to the twitter API.
+    
+    The UserActivity middlewares implements [EventEmitters](https://nodejs.org/dist/latest-v10.x/docs/api/events.html#events_class_eventemitter).
+    
     * ### Event: 'event':
-        * **eventName** - `string` : The name of the event. This can be any event documented in the [UserActivityEmitter section](class--useractivityemitter)
+        * **eventName** - `string` : The name of the event. This can be any event documented in [UserActivityEmitter](#class-useractivityemitter)
         * **userId** - `string` : The id of the user who triggered this event.
         
         This event is sent for each message received on the webhook.
@@ -204,7 +208,7 @@ userActivityWebhook.on ('unknown-event', (rawData) => console.log (rawData));
             * **options.userId** - `string` : The twitter account Id
     
         #### return value `Promise<UserActivityEmitter>`  
-        This method returns a promise that is resolved an [UserActivityEmitter](#class:-useractivityemitter) instance that will emit all the events received for this account on the webhook.
+        This method returns a promise that is resolved an [UserActivityEmitter](#class-useractivityemitter) instance that will emit all the events received for this account on the webhook.
         
     * ### triggerChallengeResponseCheck(options)
         Manually trigger a CRC request on the webhook. [Read Twitter's doc](https://developer.twitter.com/en/docs/accounts-and-users/subscribe-account-activity/api-reference/aaa-premium#put-account-activity-all-env-name-webhooks-webhook-id)
@@ -233,7 +237,7 @@ userActivityWebhook.on ('unknown-event', (rawData) => console.log (rawData));
     ## Class: UserActivityEmitter 
     
     Instances of the UserActivityEmitter class are [EventEmitters](https://nodejs.org/dist/latest-v10.x/docs/api/events.html#events_class_eventemitter) that represent activity of one twitter account.
-    You can get an instance of UserActivityEmitter by using the **[subscribe](#subscribe-options)** method of an UserActivity middleware.
+    You can get an instance of UserActivityEmitter by using the **[subscribe](#subscribeoptions)** method of an UserActivity middleware.
     
     * ### Event: 'block'
         * blockEvent - `Object` : 
