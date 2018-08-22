@@ -77,8 +77,8 @@ userActivityWebhook.on ('unknown-event', (rawData) => console.log (rawData));
     * [Event: 'event'](#event-event)
     * [Event: 'unknown-event'](#event-unknown-event)
     * [getSubscriptionsCount()](#getsubscriptionscount)
-    * [getWebhook()](#getWebhook)
-    * [getWebhooks()](#getWebhooks)
+    * [getWebhook()](#getwebhook)
+    * [getWebhooks()](#getwebhooks)
     * [isSubscribed(options)](#issubscribedoptions)
     * [register()](#register)
     * [subscribe(options)](#subscribeoptions)
@@ -88,15 +88,15 @@ userActivityWebhook.on ('unknown-event', (rawData) => console.log (rawData));
 
 * [Class: UserActivityEmitter](#class-useractivityemitter)
     * [Event: 'block'](#event-block)
-    * [Event: 'favorite'](#event-favorite)
-    * [Event: 'follow'](#event-follow)
-    * [Event: 'mute'](#event-mute)
-    * [Event: 'tweet_create'](#event-tweet_create)
     * [Event: 'direct_message'](#event-direct_message)
     * [Event: 'direct_message_indicate_typing'](#event-direct_message_indicate_typing)
     * [Event: 'direct_message_mark_read'](#event-direct_message_mark_read)
+    * [Event: 'favorite'](#event-favorite)
+    * [Event: 'follow'](#event-follow)
+    * [Event: 'mute'](#event-mute)
+    * [Event: 'revoke'](#event-revoke)
+    * [Event: 'tweet_create'](#event-tweet_create)
     * [Event: 'tweet_delete'](#event-tweet_delete)
-    * [Event: 'revoke'](#revoke)
 
 * ## twitterWebhooks
     
@@ -222,7 +222,7 @@ userActivityWebhook.on ('unknown-event', (rawData) => console.log (rawData));
       #### return value `Promise`
       The promise is resolved if the webhook was unregistered with success and is rejected if not.
 
-    * ### unsubscribe(options)**
+    * ### unsubscribe(options)
         Deletes a subscription for a particular account.
         
         #### arguments
