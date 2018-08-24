@@ -23,6 +23,7 @@ This module provide a simple way to implement twitter webhooks with ExpressJs.
 const express = require ('express');
 const bodyParser = require ('body-parser');
 const twitterWebhooks = require('twitter-webhooks');
+const https = require ('https');
 
 const app = express();
 app.use(bodyParser.json());
@@ -66,7 +67,22 @@ userActivityWebhook.on ('event', (event, userId, data) => console.log (userId + 
 //listen to unknown payload (in case of api new features)
 userActivityWebhook.on ('unknown-event', (rawData) => console.log (rawData));
 
+const server = https.createServer({
+    ...yourHttpsConfig
+});
+
+server.listen(443);
 ```  
+
+### Check your webhook
+
+You can check that your webhook is working by hitting it with a web browser : 
+
+    https://yourdomain.com/your/webhook/route?crc_token=123456
+
+If your webhook is properly working you'll see this kind of response : 
+
+    {"response_token":"sha256=3d5U20ieYMPd/+sofKdOeSE6BkVKMqFiq+acNgeUGrYg"}
 
 # Reference
 
@@ -98,7 +114,7 @@ userActivityWebhook.on ('unknown-event', (rawData) => console.log (rawData));
     * [Event: 'tweet_create'](#event-tweet_create)
     * [Event: 'tweet_delete'](#event-tweet_delete)
 
-* ## twitterWebhooks
+* ##twitterWebhooks
     
     This is the root module when your require twitter-webhooks.
     ````javascript
