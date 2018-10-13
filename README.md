@@ -126,21 +126,21 @@ If your webhook is properly working you'll see this kind of response :
     
         #### arguments
         *  **config** - `Object`:
-            * **config.serverUrl** - `string`: The server URL were twitter can reach the webhook app (eg: 'https://my.aweso.me/service')
+            * **config.serverUrl** - `string`: The server URL where twitter can reach the webhook app (eg: 'https://my.aweso.me/service')
             * **config.route** - `string`: the route of the middleware in the app (eg: '/user-activity-webhook')
             * **config.consumerKey** - `string`: Your Twitter app consumerKey
             * **config.consumerSecret** - `string`: Your Twitter app consumerSecret
             * **config.accessToken** - `string`: Your Twitter app accessToken
             * **config.accessTokenSecret** - `string`: Your Twitter app accessTokenSecret
             * **config.environment** - `string`: The environment name of the webhook. You can find it in your [twitter dashboard](https://developer.twitter.com/en/dashboard)
-            * **config.app** - `Express App` *(optional)*: The express app on which mount the middleware. If not provided don't forget to mount the middleware (eg : `app.use(userActivity.route, userActivity)` )
+            * **config.app** - `Express App` *(optional)*: The express app on which to mount the middleware. If not provided, don't forget to mount the middleware (eg : `app.use(userActivity.route, userActivity)` )
 
          #### return value `UserActivity`
         This method returns a [UserActivity](#middleware-useractivity) middleware.  
             
 * ## Middleware: UserActivity
     
-    An UserActivity middleware is created using the [twitterWebhooks.userActivity(config)](#useractivityconfig) method. This middleware can be mount on an ExpressJs app. Each middleware is associated with one User Activity webhook. UserActivity middlewares have a set of methods that helps to configure the webhook by sending calls to the twitter API.
+    An UserActivity middleware is created using the [twitterWebhooks.userActivity(config)](#useractivityconfig) method. This middleware can be mounted on an ExpressJs app. Each middleware is associated with one User Activity webhook. UserActivity middlewares has a set of methods that helps to configure the webhook by sending calls to the twitter API.
     
     The UserActivity middlewares implements [EventEmitters](https://nodejs.org/dist/latest-v10.x/docs/api/events.html#events_class_eventemitter).
     
@@ -164,10 +164,10 @@ If your webhook is properly working you'll see this kind of response :
             "subscriptions_count_direct_messages": "1"
         }
         ```
-    * ### getWebook()
+    * ### getWebhook()
         > Warning : This method will certainly be modified.
         
-        Get informations about the current registered webhooks of an environment. 
+        Get information about the current registered webhooks of an environment. 
         
         #### return value `Promise<Array>`
         This method returns a promise that is resolved with a javascript Array provided by the Twitter API.
@@ -182,8 +182,8 @@ If your webhook is properly working you'll see this kind of response :
         ]
         ```
     
-    * ### getWebooks()
-        Get informations about webhooks for all the environments of your twitter app. 
+    * ### getWebhooks()
+        Get information about webhooks for all the environments of your twitter app. 
 
         #### return value `return Promise<Array>`
         This method returns a promise that is resolved with a javascript Array provided by the Twitter API. For more information about the response, please [read Twitter's doc](https://developer.twitter.com/en/docs/accounts-and-users/subscribe-account-activity/api-reference/aaa-premium#get-account-activity-all-webhooks).
@@ -198,7 +198,7 @@ If your webhook is properly working you'll see this kind of response :
             * **options.userId** - `string` : The twitter account Id
     
         #### return value `Promise<Boolean>`
-        This method returns a promise that is resolved to `true` if the account is subscribed to this middleware's webhook otherwise the resolve value is `false`.
+        This method returns a promise that is resolved to `true` if the account is subscribed to this middleware's webhook. Otherwise the resolve value is `false`.
     
     * ### register()  
         Registers the webhook with the parameters given in the config of the middleware constructor. [Read Twitter's doc](https://developer.twitter.com/en/docs/accounts-and-users/subscribe-account-activity/api-reference/aaa-premium#post-account-activity-all-env-name-webhooks)
@@ -316,11 +316,11 @@ If your webhook is properly working you'll see this kind of response :
         }
         ```
     * ### Event: 'direct_message'
-        > Not tested yet, please provide feedbacks if you are using this.
+        > Not tested yet. Please provide feedback if you are using this.
     * ### Event: 'direct_message_indicate_typing'
-        > Not tested yet, please provide feedbacks if you are using this.
+        > Not tested yet. Please provide feedback if you are using this.
     * ### Event: 'direct_message_mark_read'
-        > Not tested yet, please provide feedbacks if you are using this.
+        > Not tested yet. Please provide feedback if you are using this.
     * ### Event: 'revoke'
         * userId - `string` : Id of the user who revoked the subscription. This is the same id as the UserActivityEmitter instance id.  
     
@@ -331,7 +331,7 @@ If your webhook is properly working you'll see this kind of response :
         * tweetDeleteEvent - `Object`: 
             * status - `object`:
                 * id - `string`: id of the deleted tweet
-                * user_id - `string`: id of the user who deleted tweet
+                * user_id - `string`: id of the user who deleted the tweet
             * timestamp_ms - `string`: Timestamp of when the event happened
         ```json
         {
