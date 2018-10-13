@@ -224,7 +224,7 @@ If your webhook is properly working you'll see this kind of response :
             * **options.userId** - `string` : The twitter account Id
     
         #### return value `Promise<UserActivityEmitter>`  
-        This method returns a promise that is resolved an [UserActivityEmitter](#class-useractivityemitter) instance that will emit all the events received for this account on the webhook.
+        This method returns a promise that is resolved to a [UserActivityEmitter](#class-useractivityemitter) instance that will emit all the events received for this account on the webhook.
         
     * ### triggerChallengeResponseCheck(options)
         Manually trigger a CRC request on the webhook. [Read Twitter's doc](https://developer.twitter.com/en/docs/accounts-and-users/subscribe-account-activity/api-reference/aaa-premium#put-account-activity-all-env-name-webhooks-webhook-id)
@@ -239,7 +239,7 @@ If your webhook is properly working you'll see this kind of response :
       The promise is resolved if the webhook was unregistered with success and is rejected if not.
 
     * ### unsubscribe(options)
-        Deletes a subscription for a particular account.
+        Deletes a subscription for the specified account.
         
         #### arguments
         * **options** `Object`:
