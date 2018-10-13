@@ -114,7 +114,7 @@ If your webhook is properly working you'll see this kind of response :
     * [Event: 'tweet_create'](#event-tweet_create)
     * [Event: 'tweet_delete'](#event-tweet_delete)
 
-* ##twitterWebhooks
+* ## TwitterWebhooks
     
     This is the root module when your require twitter-webhooks.
     ````javascript
