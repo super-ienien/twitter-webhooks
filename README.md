@@ -9,6 +9,7 @@ This module provide a simple way to implement twitter webhooks with ExpressJs.
 # Requirements
 
 - [You need to create an app on the twitter's developer portal and apply for Account Activity API access](https://developer.twitter.com/en/docs/accounts-and-users/subscribe-account-activity/guides/getting-started-with-webhooks)
+- Your Twitter app must have the `Read, write, and direct messages` permission
 - Your server must be reachable with https because twitter doesn't accept unsecured webhooks.
 - This is an ExpressJS middleware so Express must be installed with your app
 - body-parser JSON middleware must be added mount on your Express app
