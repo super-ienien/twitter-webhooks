@@ -102,6 +102,7 @@ If your webhook is properly working you'll see this kind of response :
     * [triggerChallengeResponseCheck(options)](#triggerchallengeresponsecheckoptions)
     * [unregister()](#unregister)
     * [unsubscribe(options)](#unsubscribeoptions)
+    * [getCrcCheckTiming()](#getcrcchecktiming)
 
 * [Class: UserActivityEmitter](#class-useractivityemitter)
     * [Event: 'block'](#event-block)
@@ -251,6 +252,12 @@ If your webhook is properly working you'll see this kind of response :
 
         #### return value `Promise`
         The promise is resolved if the subscription was deleted with success and is rejected if not.
+
+    * ### getCrcCheckTiming()
+        Utility function that perform a CRC check request in order to estimate a the server timing.
+
+        #### return value `Promise<int>`
+        The promise is resolved with the timing of the request in milliseconds.
 
     ## Class: UserActivityEmitter
 
