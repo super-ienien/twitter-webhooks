@@ -1,6 +1,6 @@
 {
   "name": "twitter-webhooks",
-  "version": "0.3.1",
+  "version": "0.3.2",
   "description": "Twitter webhooks library",
   "main": "index.js",
   "scripts": {
