@@ -235,11 +235,15 @@ If your webhook is properly working you'll see this kind of response :
         #### arguments
         * **options.webhookId** - `string` : The webhook id
 
-    * ### unregister()
+    * ### unregister(options)
         Unregisters the webhook with the parameters given in the config of the middleware constructor. [Read Twitter's doc](https://developer.twitter.com/en/docs/accounts-and-users/subscribe-account-activity/api-reference/aaa-premium#post-account-activity-all-env-name-webhooks)
 
-      #### return value `Promise`
-      The promise is resolved if the webhook was unregistered with success and is rejected if not.
+        #### arguments
+        * **options** - `Object`
+            * **options.webhookId** - `string` : The webhook id that you wan't to unregister
+            
+        #### return value `Promise`
+        The promise is resolved if the webhook was unregistered with success and is rejected if not.
 
     * ### unsubscribe(options)
         Deletes a subscription for the specified account.
