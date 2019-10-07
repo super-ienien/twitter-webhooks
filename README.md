@@ -100,7 +100,7 @@ If your webhook is properly working you'll see this kind of response :
     * [register()](#register)
     * [subscribe(options)](#subscribeoptions)
     * [triggerChallengeResponseCheck(options)](#triggerchallengeresponsecheckoptions)
-    * [unregister()](#unregister)
+    * [unregister(options)](#unregisteroptions)
     * [unsubscribe(options)](#unsubscribeoptions)
     * [getCrcCheckTiming()](#getcrcchecktiming)
 
